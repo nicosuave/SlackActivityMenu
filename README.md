@@ -67,10 +67,12 @@ make package
 Notarize with an existing notarytool keychain profile:
 
 ```sh
-NOTARY_PROFILE=notarytool make notarize
+make notarize
 ```
 
 The build scripts generate the app icon, write `Info.plist`, sign with hardened runtime for release packaging, and produce zip archives under `.build/`.
+
+For repeatable local release settings, copy `.release.env.example` to `.release.env` and set your signing identity and notarytool profile. `.release.env` is ignored so credentials and machine-specific profile names are not committed.
 
 If the notary profile is not already configured, create it once:
 

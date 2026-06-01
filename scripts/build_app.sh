@@ -2,6 +2,12 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+if [[ -f "$ROOT/.release.env" ]]; then
+  set -a
+  source "$ROOT/.release.env"
+  set +a
+fi
+
 APP_NAME="SlackActivityMenu"
 APP_DIR="$ROOT/.build/$APP_NAME.app"
 ICONSET_DIR="$ROOT/.build/$APP_NAME.iconset"
