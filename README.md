@@ -6,6 +6,8 @@ This project is unofficial and is not affiliated with, endorsed by, or supported
 
 It uses Slack's `StatusLabel` value from LaunchServices and renders it as a compact red badge over a custom black activity mark. This is useful for surfacing Slack activity while the Dock is hidden or out of view.
 
+![SlackActivityMenu showing a red activity badge in the macOS menu bar](docs/menu-bar-badge.png)
+
 ## What It Is
 
 `SlackActivityMenu` is a local-only utility. It does not use Slack OAuth, Slack Web API tokens, network calls, or notification scraping. It does use Sparkle to check for app updates from this project's GitHub releases.
