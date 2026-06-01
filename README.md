@@ -8,6 +8,12 @@ It uses Slack's `StatusLabel` value from LaunchServices and renders it as a comp
 
 ![SlackActivityMenu showing a red activity badge in the macOS menu bar](docs/menu-bar-badge.png)
 
+## Download
+
+Download the latest signed and notarized DMG from [GitHub Releases](https://github.com/nicosuave/SlackActivityMenu/releases/latest).
+
+Open the DMG, drag `SlackActivityMenu.app` to `/Applications`, then launch it. Version `0.1.1` and later can check for future updates from the app menu.
+
 ## What It Is
 
 `SlackActivityMenu` is a local-only utility. It does not use Slack OAuth, Slack Web API tokens, network calls, or notification scraping. It does use Sparkle to check for app updates from this project's GitHub releases.
