@@ -45,6 +45,7 @@ make build
 make test
 make app
 make package
+make dmg
 make notarize
 make open
 make clean
@@ -64,15 +65,21 @@ Build, sign, and zip with a Developer ID Application certificate:
 make package
 ```
 
+Build and sign a drag-to-Applications disk image:
+
+```sh
+make dmg
+```
+
 Notarize with an existing notarytool keychain profile:
 
 ```sh
 make notarize
 ```
 
-The build scripts generate the app icon, write `Info.plist`, sign with hardened runtime for release packaging, and produce zip archives under `.build/`.
+The build scripts generate the app icon, write `Info.plist`, sign with hardened runtime for release packaging, and produce zip and DMG archives under `.build/`. `make notarize` notarizes and staples both the app bundle and release DMG.
 
-For repeatable local release settings, copy `.release.env.example` to `.release.env` and set your signing identity and notarytool profile. `.release.env` is ignored so credentials and machine-specific profile names are not committed.
+For repeatable local release settings, copy `.release.env.example` to `.release.env` and set your signing identity, notarytool profile, and optional DMG volume name. `.release.env` is ignored so credentials and machine-specific profile names are not committed.
 
 If the notary profile is not already configured, create it once:
 

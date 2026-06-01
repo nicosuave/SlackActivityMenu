@@ -18,10 +18,11 @@
 swift test
 make app
 make package
+make dmg
 make notarize
 ```
 
-For repeatable local release settings, copy `.release.env.example` to `.release.env` and set `CODESIGN_IDENTITY` and `NOTARY_PROFILE`.
+For repeatable local release settings, copy `.release.env.example` to `.release.env` and set `CODESIGN_IDENTITY`, `NOTARY_PROFILE`, and optionally `DMG_VOLUME_NAME`.
 
 If notarization credentials are missing:
 
