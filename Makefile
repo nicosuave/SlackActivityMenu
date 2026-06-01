@@ -1,4 +1,4 @@
-.PHONY: build test run app package dmg notarize open clean
+.PHONY: build test run app package dmg appcast notarize open clean
 
 build:
 	swift build
@@ -17,6 +17,9 @@ package:
 
 dmg:
 	./scripts/package_dmg.sh
+
+appcast:
+	./scripts/generate_appcast.sh
 
 notarize:
 	./scripts/notarize.sh

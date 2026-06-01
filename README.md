@@ -8,7 +8,7 @@ It uses Slack's `StatusLabel` value from LaunchServices and renders it as a comp
 
 ## What It Is
 
-`SlackActivityMenu` is a local-only utility. It does not use Slack OAuth, Slack Web API tokens, network calls, or notification scraping.
+`SlackActivityMenu` is a local-only utility. It does not use Slack OAuth, Slack Web API tokens, network calls, or notification scraping. It does use Sparkle to check for app updates from this project's GitHub releases.
 
 The app runs as a menu extra, polls every 5 seconds, and reads:
 
@@ -46,6 +46,7 @@ make test
 make app
 make package
 make dmg
+make appcast
 make notarize
 make open
 make clean
@@ -77,9 +78,9 @@ Notarize with an existing notarytool keychain profile:
 make notarize
 ```
 
-The build scripts generate the app icon, write `Info.plist`, sign with hardened runtime for release packaging, and produce zip and DMG archives under `.build/`. `make notarize` notarizes and staples both the app bundle and release DMG.
+The build scripts generate the app icon, write `Info.plist`, sign with hardened runtime for release packaging, and produce zip and DMG archives under `.build/`. `make notarize` notarizes and staples both the app bundle and release DMG, then generates a Sparkle `appcast.xml` for the versioned DMG under `.build/appcast/`.
 
-For repeatable local release settings, copy `.release.env.example` to `.release.env` and set your signing identity, notarytool profile, and optional DMG volume name. `.release.env` is ignored so credentials and machine-specific profile names are not committed.
+For repeatable local release settings, copy `.release.env.example` to `.release.env` and set your signing identity, notarytool profile, Sparkle account, and optional DMG volume name. `.release.env` is ignored so credentials and machine-specific profile names are not committed.
 
 If the notary profile is not already configured, create it once:
 
@@ -89,6 +90,14 @@ xcrun notarytool store-credentials notarytool \
   --team-id TEAMID \
   --password app-specific-password
 ```
+
+Sparkle update signing uses an EdDSA private key stored in Keychain. Create or print the matching public key with:
+
+```sh
+.build/artifacts/sparkle/Sparkle/bin/generate_keys --account com.nicholasritschel.SlackActivityMenu
+```
+
+Do not commit exported Sparkle private keys.
 
 ## Limitations
 

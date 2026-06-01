@@ -1,10 +1,16 @@
 import AppKit
 import SlackActivityCore
+import Sparkle
 
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private let reader = LSAppInfoBadgeReader()
     private let iconRenderer = StatusIconRenderer()
+    private let updaterController = SPUStandardUpdaterController(
+        startingUpdater: true,
+        updaterDelegate: nil,
+        userDriverDelegate: nil
+    )
     private let refreshInterval: TimeInterval = 5
     private var statusItem: NSStatusItem?
     private var timer: Timer?
@@ -50,6 +56,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         menu.addItem(.separator())
         menu.addItem(actionItem(title: "Refresh", action: #selector(refreshNow), keyEquivalent: "r"))
+        menu.addItem(actionItem(title: "Check for Updates...", action: #selector(checkForUpdates), keyEquivalent: "u"))
         menu.addItem(actionItem(title: "Open Slack", action: #selector(openSlack), keyEquivalent: "o"))
         menu.addItem(.separator())
         menu.addItem(actionItem(title: "Quit", action: #selector(quit), keyEquivalent: "q"))
@@ -87,6 +94,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc private func refreshNow() {
         refresh()
+    }
+
+    @objc private func checkForUpdates(_ sender: Any?) {
+        updaterController.checkForUpdates(sender)
     }
 
     @objc private func openSlack() {

@@ -26,6 +26,13 @@ if [[ -z "$IDENTITY" ]]; then
   exit 1
 fi
 
+SPARKLE_FRAMEWORK="$APP_DIR/Contents/Frameworks/Sparkle.framework"
+if [[ -d "$SPARKLE_FRAMEWORK" ]]; then
+  codesign --force --timestamp --options runtime --sign "$IDENTITY" "$SPARKLE_FRAMEWORK/Versions/B/Autoupdate"
+  codesign --force --timestamp --options runtime --sign "$IDENTITY" "$SPARKLE_FRAMEWORK/Versions/B/Updater.app"
+  codesign --force --timestamp --options runtime --sign "$IDENTITY" "$SPARKLE_FRAMEWORK"
+fi
+
 codesign --force --timestamp --options runtime --sign "$IDENTITY" "$APP_DIR"
 codesign --verify --strict --verbose=2 "$APP_DIR"
 

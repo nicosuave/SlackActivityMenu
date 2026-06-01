@@ -31,6 +31,7 @@ xcrun notarytool submit "$DMG_PATH" --keychain-profile "$NOTARY_PROFILE" --wait
 xcrun stapler staple "$DMG_PATH"
 xcrun stapler validate "$DMG_PATH"
 spctl --assess --type open --context context:primary-signature --verbose=4 "$DMG_PATH"
+"$ROOT/scripts/generate_appcast.sh"
 
 echo "$STAPLED_ZIP_PATH"
 echo "$DMG_PATH"
