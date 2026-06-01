@@ -1,0 +1,31 @@
+# Publishing Checklist
+
+## Before Public Release
+
+- Review descriptive Slack name usage and trademark implications.
+- Decide whether to publish source-only, binary releases, or both.
+
+## Technical Notes
+
+- This app depends on `/usr/bin/lsappinfo` and the private `StatusLabel` field.
+- The displayed value is Slack's local activity label, not a guaranteed unread message count.
+- There is no local, supported path for individual unread item details.
+- The app does not use Slack API credentials, network calls, or Notification Center history.
+
+## Verification
+
+```sh
+swift test
+make app
+make package
+NOTARY_PROFILE=notarytool make notarize
+```
+
+If notarization credentials are missing:
+
+```sh
+xcrun notarytool store-credentials notarytool \
+  --apple-id you@example.com \
+  --team-id TEAMID \
+  --password app-specific-password
+```
